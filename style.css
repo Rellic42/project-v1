@@ -79,7 +79,5 @@ body{
     100%{
         transform: translateX(0);
     }
-    #vid{
-  object-fit: fill;
-}
+    
 }
