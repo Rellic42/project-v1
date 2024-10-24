@@ -2,11 +2,147 @@
 <html lang="en">
 <head>
    <title>EZee Qr</title>
-   <link rel="stylesheet" href="style.css">
+   <!-- <link rel="stylesheet" href="style.css"> -->
+   <style>
+      * {
+         margin: 0;
+         padding: 0;
+         font-family: 'Poppins', sans-serif;
+         box-sizing: border-box;
+      }
+
+      body {
+         background: #262a2f;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         min-height: 100vh;
+         margin: 0;
+      }
+
+      video {
+         position: fixed;
+         top: 0;
+         left: 0;
+         min-width: 100%;
+         min-height: 100%;
+         z-index: -1;
+         object-fit: cover;
+      }
+
+      .container {
+         width: 90%;
+         max-width: 400px;
+         padding: 25px 35px;
+         background: #fff;
+         border-radius: 10px;
+         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+         text-align: center;
+      }
+
+      .container p {
+         font-weight: 600;
+         font-size: 15px;
+         margin-bottom: 8px;
+      }
+
+      .container input {
+         width: 100%;
+         height: 50px;
+         border: 1px solid #494eea;
+         outline: 0;
+         padding: 10px;
+         margin: 10px 0 20px;
+         border-radius: 5px;
+      }
+
+      .container button {
+         width: 100%;
+         height: 50px;
+         background: #494eea;
+         color: #fff;
+         border: 0;
+         outline: 0;
+         border-radius: 5px;
+         box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+         cursor: pointer;
+         margin: 20px 0;
+         font-weight: 500;
+      }
+
+      #imgBox {
+         width: 100%;
+         max-width: 200px;
+         border-radius: 5px;
+         max-height: 0;
+         overflow: hidden;
+         transition: max-height 0.5s ease;
+      }
+
+      #imgBox img {
+         width: 100%;
+         padding: 10px;
+      }
+
+      #imgBox.show-img {
+         max-height: 300px;
+         margin: 10px auto;
+         border: 1px solid #d1d1d1;
+      }
+
+      .error {
+         animation: shake 0.1s linear;
+      }
+
+      @keyframes shake {
+         0% {
+            transform: translateX(0);
+         }
+
+         25% {
+            transform: translateX(-2px);
+         }
+
+         50% {
+            transform: translateX(0);
+         }
+
+         75% {
+            transform: translateX(2px);
+         }
+
+         100% {
+            transform: translateX(0);
+         }
+      }
+
+      /* Make the website responsive across different screen sizes */
+      @media screen and (max-width: 768px) {
+         .container {
+            width: 80%;
+            padding: 20px 25px;
+         }
+      }
+
+      @media screen and (max-width: 480px) {
+         .container {
+            width: 90%;
+            padding: 15px 20px;
+         }
+
+         .container p {
+            font-size: 14px;
+         }
+
+         .container button {
+            height: 45px;
+         }
+      }
+   </style>
 </head>
 <body>
-    <video id="vid" muted loop>
-        <source src="76.mp4" type="video/mp4">
+    <video id="vid" muted autoplay loop>
+        <source src="76.mp4">
     </video>
     <div class="container">
         <p>Enter Text or URL</p>
@@ -17,23 +153,24 @@
         </div>
         <button onclick="generateQR()">Generate QR Code</button>
     </div>
+
     <script>
         let imgBox = document.getElementById("imgBox");
         let qrImage = document.getElementById("qrImage");
         let qrText = document.getElementById("qrText");
 
         function generateQR(){
-        if(qrText.value.length > 0){
-            qrImage.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + qrText.value;
-            imgBox.classList.add("show-img");
-        }else{
-            qrText.classList.add('error');
-            setTimeout(()=>{
-                qrText.classList.remove('error');
-            },1000);
-        }
-            
+            if(qrText.value.length > 0){
+                qrImage.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + qrText.value;
+                imgBox.classList.add("show-img");
+            }else{
+                qrText.classList.add('error');
+                setTimeout(()=>{
+                    qrText.classList.remove('error');
+                },1000);
+            }
         }
     </script>
 </body>
 </html>
+
